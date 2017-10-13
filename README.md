@@ -1,4 +1,4 @@
-# Nexus module for Puppet [![Build Status](https://travis-ci.org/hubspotdevops/puppet-nexus.svg?branch=master)](https://travis-ci.org/hubspotdevops/puppet-nexus)
+# Nexus module for Puppet [![Build Status](https://travis-ci.org/SchlegelS0208/nexus.svg?branch=master)](https://travis-ci.org/SchlegelS0208/nexus)
 Install and configure Sonatype Nexus.
 
 I created a copy based on Hubspot's puppet-nexus module,
