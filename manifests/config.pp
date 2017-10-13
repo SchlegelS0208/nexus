@@ -65,10 +65,12 @@ class nexus::config(
   }
 
   if ! defined(file[$nexus_work_dir]) {
+    file { $nexus_work_dir:
         ensure   => directory,
         owner    => 'nexus',
         group    => 'nexus',
         recurse  => true,
+    }
   }
 
   file { "${nexus_work_dir}/${conf_dir}":
