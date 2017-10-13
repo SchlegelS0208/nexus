@@ -1,13 +1,17 @@
-# Sonatype Nexus Puppet module [![Build Status](https://travis-ci.org/hubspotdevops/puppet-nexus.svg?branch=master)](https://travis-ci.org/hubspotdevops/puppet-nexus)
+# Nexus module for Puppet [![Build Status](https://travis-ci.org/hubspotdevops/puppet-nexus.svg?branch=master)](https://travis-ci.org/hubspotdevops/puppet-nexus)
 Install and configure Sonatype Nexus.
+
+I created a copy based on Hubspot's puppet-nexus module,
+because it seems to be not actively maintained anymore:
+[![Hubspot's Module](https://github.com/hubspotdevops/puppet-nexus)]
 
 ## Requires
 * maestrodev/wget
 * puppetlabs/stdlib
 
 ## Usage
-The following is a basic role class for building a nexus host.  Adjust
-accordingly as needed.
+The following is a basic role class for building a nexus host.
+Adjust accordingly as needed.
 
 NOTE: you must pass version to Class['nexus'].  This is needed for the
 download link and determining the name of the nexus directory.
@@ -33,7 +37,7 @@ class role_nexus_server {
 NOTE: If you wish to deploy a Nexus Pro server instead of Nexus OSS set
 `deploy_pro => true`
 
-### Usage(draft): Nexus 3 support
+### Usage: Nexus 3.6 support
 
 ```puppet
 class role_nexus_server {
@@ -91,8 +95,9 @@ https://${::fqdn}/nexus/
 ## TODO
 * Find a way to not require a version to be passed to Class['nexus']
 
-## Authors
-* Tom McLaughlin <tmclaughlin@hubspot.com>
+## Modified by:
+* Steven Schlegel <schlegels@i-fixit.it>
 
-## Copyright
+## Initial Authors & Copyright
+* Tom McLaughlin <tmclaughlin@hubspot.com>
 Hubspot, Inc.
