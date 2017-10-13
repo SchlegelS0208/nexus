@@ -64,7 +64,7 @@ class nexus::config(
         recurse  => true,
   }
 
-  file { $nexus_work_dir:
+  if ! defined(file[$nexus_work_dir]) {
         ensure   => directory,
         owner    => 'nexus',
         group    => 'nexus',
