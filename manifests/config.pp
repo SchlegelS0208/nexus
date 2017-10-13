@@ -83,10 +83,7 @@ class nexus::config(
   file { "${nexus_properties_file}.tmpl":
     ensure  =>  present,
     content => template('nexus/nexus.properties.erb'),
-    require => [
-                 Exec['nexus-untar'],
-                 File["${nexus_work_dir}/${conf_dir}"]
-                ],
+    require => [Exec['nexus-untar'],File["${nexus_work_dir}/${conf_dir}"]],
     mode    => '0600',
     owner   => 'nexus',
     group   => 'nexus',
@@ -104,9 +101,9 @@ class nexus::config(
     match   => '^application-host',
     line    => "application-host=${nexus_host}",
     require => [
-                 File["${nexus_properties_file}.tmpl"],
-                 Exec['install-nexus-config'],
-                ],
+      File["${nexus_properties_file}.tmpl"],
+      Exec['install-nexus-config'],
+    ],
   }
 
   file_line{ 'nexus-application-port':
@@ -114,9 +111,9 @@ class nexus::config(
     match   => '^application-port',
     line    => "application-port=${nexus_port}",
     require => [
-                 File["${nexus_properties_file}.tmpl"],
-                 Exec['install-nexus-config'],
-                ],
+      File["${nexus_properties_file}.tmpl"],
+      Exec['install-nexus-config'],
+    ],
   }
 
   file_line{ $context_path_setting:
@@ -124,9 +121,9 @@ class nexus::config(
     match   => "^${context_path_setting}",
     line    => "${context_path_setting}=${nexus_context}",
     require => [
-                 File["${nexus_properties_file}.tmpl"],
-                 Exec['install-nexus-config'],
-                ],
+      File["${nexus_properties_file}.tmpl"],
+      Exec['install-nexus-config'],
+    ],
   }
 
   file_line{ 'nexus-work':
@@ -134,9 +131,9 @@ class nexus::config(
     match   => '^nexus-work',
     line    => "nexus-work=${nexus_work_dir}",
     require => [
-                 File["${nexus_properties_file}.tmpl"],
-                 Exec['install-nexus-config'],
-                ],
+      File["${nexus_properties_file}.tmpl"],
+      Exec['install-nexus-config'],
+    ],
   }
 
   if $nexus_data_folder {
