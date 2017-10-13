@@ -70,6 +70,7 @@ class nexus::config(
         owner   => 'nexus',
         group   => 'nexus',
         recurse => true,
+        require => File["${nexus_root}/sonatype-work"],
     }
   }
 
