@@ -26,6 +26,7 @@ class nexus::config(
   $nexus_context = $::nexus::nexus_context,
   $nexus_work_dir = $::nexus::nexus_work_dir,
   $nexus_data_folder = $::nexus::nexus_data_folder,
+  $nexus_work_dir_manage = $::nexus::nexus_work_dir_manage,
   $version = $::nexus::version,
 ) {
 
