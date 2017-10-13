@@ -58,82 +58,82 @@ class nexus::config(
   # Nexus >=3.x do no necesarily have a properties file in place to
   # modify. Make sure that there is at least a minmal file there
   file { "${nexus_root}/sonatype-work":
-        ensure   => directory,
-        owner    => 'nexus',
-        group    => 'nexus',
-        recurse  => true,
+        ensure  => directory,
+        owner   => 'nexus',
+        group   => 'nexus',
+        recurse => true,
   }
 
   if ! defined(file[$nexus_work_dir]) {
     file { $nexus_work_dir:
-        ensure   => directory,
-        owner    => 'nexus',
-        group    => 'nexus',
-        recurse  => true,
+        ensure  => directory,
+        owner   => 'nexus',
+        group   => 'nexus',
+        recurse => true,
     }
   }
 
   file { "${nexus_work_dir}/${conf_dir}":
-        ensure   => directory,
-        owner    => 'nexus',
-        group    => 'nexus',
-        recurse  => true,
+        ensure  => directory,
+        owner   => 'nexus',
+        group   => 'nexus',
+        recurse => true,
   }
 
   file { "${nexus_properties_file}.tmpl":
-    ensure   =>  present,
-    content  => template('nexus/nexus.properties.erb'),
-    require  => [
+    ensure  =>  present,
+    content => template('nexus/nexus.properties.erb'),
+    require => [
                  Exec['nexus-untar'],
                  File["${nexus_work_dir}/${conf_dir}"]
                 ],
-    mode     => '0600',
-    owner    => 'nexus',
-    group    => 'nexus',
+    mode    => '0600',
+    owner   => 'nexus',
+    group   => 'nexus',
   }
 
   exec { 'install-nexus-config':
-    command   => "yes | cp ${nexus_properties_file}.tmpl ${nexus_properties_file}",
-    path      => ['/bin/','/sbin/','/usr/bin/','/usr/sbin'],
-    require   => File["${nexus_properties_file}.tmpl"],
-    unless    => "grep -q PUPPET ${nexus_properties_file}",
+    command => "yes | cp ${nexus_properties_file}.tmpl ${nexus_properties_file}",
+    path    => ['/bin/','/sbin/','/usr/bin/','/usr/sbin'],
+    require => File["${nexus_properties_file}.tmpl"],
+    unless  => "grep -q PUPPET ${nexus_properties_file}",
   }
 
   file_line{ 'nexus-application-host':
-    path     => $nexus_properties_file,
-    match    => '^application-host',
-    line     => "application-host=${nexus_host}",
-    require  => [
+    path    => $nexus_properties_file,
+    match   => '^application-host',
+    line    => "application-host=${nexus_host}",
+    require => [
                  File["${nexus_properties_file}.tmpl"],
                  Exec['install-nexus-config'],
                 ],
   }
 
   file_line{ 'nexus-application-port':
-    path     => $nexus_properties_file,
-    match    => '^application-port',
-    line     => "application-port=${nexus_port}",
-    require  => [
+    path    => $nexus_properties_file,
+    match   => '^application-port',
+    line    => "application-port=${nexus_port}",
+    require => [
                  File["${nexus_properties_file}.tmpl"],
                  Exec['install-nexus-config'],
                 ],
   }
 
   file_line{ $context_path_setting:
-    path     => $nexus_properties_file,
-    match    => "^${context_path_setting}",
-    line     => "${context_path_setting}=${nexus_context}",
-    require  => [
+    path    => $nexus_properties_file,
+    match   => "^${context_path_setting}",
+    line    => "${context_path_setting}=${nexus_context}",
+    require => [
                  File["${nexus_properties_file}.tmpl"],
                  Exec['install-nexus-config'],
                 ],
   }
 
   file_line{ 'nexus-work':
-    path     => $nexus_properties_file,
-    match    => '^nexus-work',
-    line     => "nexus-work=${nexus_work_dir}",
-    require  => [
+    path    => $nexus_properties_file,
+    match   => '^nexus-work',
+    line    => "nexus-work=${nexus_work_dir}",
+    require => [
                  File["${nexus_properties_file}.tmpl"],
                  Exec['install-nexus-config'],
                 ],
@@ -141,10 +141,10 @@ class nexus::config(
 
   if $nexus_data_folder {
     file{ $nexus_data_dir :
-      ensure  => 'link',
-      target  => $nexus_data_folder,
-      force   => true,
-      notify  => Service['nexus']
+      ensure => 'link',
+      target => $nexus_data_folder,
+      force  => true,
+      notify => Service['nexus']
     }
   }
 }
