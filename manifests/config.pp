@@ -65,7 +65,7 @@ class nexus::config(
   }
 
   if !defined(File[$nexus_work_dir]) {
-    file { "${nexus_work_dir}":
+    file { $nexus_work_dir:
         ensure  => directory,
         owner   => 'nexus',
         group   => 'nexus',
