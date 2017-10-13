@@ -64,14 +64,12 @@ class nexus::config(
         recurse => true,
   }
 
-  if !defined(File[$nexus_work_dir]) {
-    file { $nexus_work_dir:
+  file { $nexus_work_dir:
         ensure  => directory,
         owner   => 'nexus',
         group   => 'nexus',
         recurse => true,
         require => File["${nexus_root}/sonatype-work"],
-    }
   }
 
   file { "${nexus_work_dir}/${conf_dir}":

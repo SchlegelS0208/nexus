@@ -97,13 +97,15 @@ class nexus::package (
   # I have an EBS volume for $nexus_work_dir and mounting code in our tree
   # creates this and results in a duplicate resource. -tmclaughlin
   if $nexus_work_dir_manage == true {
-    file{ $nexus_work_dir:
-      ensure                  => directory,
-      owner                   => $nexus_user,
-      group                   => $nexus_group,
-      recurse                 => $nexus_work_recurse,
-      selinux_ignore_defaults => $nexus_selinux_ignore_defaults,
-      require                 => Exec[ 'nexus-untar']
+    if !defined(File[$nexus_work_dir]) {
+      file{ $nexus_work_dir:
+        ensure                  => directory,
+        owner                   => $nexus_user,
+        group                   => $nexus_group,
+        recurse                 => $nexus_work_recurse,
+        selinux_ignore_defaults => $nexus_selinux_ignore_defaults,
+        require                 => Exec[ 'nexus-untar']
+      }
     }
 
     # Nexus 3 needs to have a nexus_work_dir/etc for the properties file
