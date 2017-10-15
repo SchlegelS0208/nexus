@@ -3,14 +3,15 @@ require 'spec_helper'
 describe 'nexus::config', :type => :class do
   let(:params) {
     {
-      'nexus_root'        => '/foo',
-      'nexus_home_dir'    => '/bar',
-      'nexus_host'        => '1.1.1.1',
-      'nexus_port'        => '8888',
-      'nexus_context'     => '/baz',
-      'nexus_work_dir'    => '/foom',
-      'version'           => '2.11.2',
-      'nexus_data_folder' => '',
+      'nexus_root'            => '/foo',
+      'nexus_home_dir'        => '/bar',
+      'nexus_host'            => '1.1.1.1',
+      'nexus_port'            => '8888',
+      'nexus_context'         => '/baz',
+      'nexus_work_dir'        => '/foom',
+      'version'               => '2.11.2',
+      'nexus_data_folder'     => '',
+      'nexus_work_dir_manage' => 'true',
     }
   }
 
