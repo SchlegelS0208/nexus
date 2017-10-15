@@ -58,21 +58,21 @@ class nexus::config(
 
   # Nexus >=3.x do no necesarily have a properties file in place to
   # modify. Make sure that there is at least a minmal file there
-  file { "${nexus_root}/sonatype-work":
-        ensure  => directory,
-        owner   => 'nexus',
-        group   => 'nexus',
-        recurse => true,
-  }
-
   if $nexus_work_dir_manage == false {
-    file { "${nexus_work_dir}/":
+    file { "${nexus_root}/sonatype-work":
       ensure  => directory,
       owner   => 'nexus',
       group   => 'nexus',
       recurse => true,
-      require => File["${nexus_root}/sonatype-work"],
     }
+  }
+
+  file { "${nexus_work_dir}/":
+        ensure  => directory,
+        owner   => 'nexus',
+        group   => 'nexus',
+        recurse => true,
+        require => File["${nexus_root}/sonatype-work"],
   }
 
   file { "${nexus_work_dir}/${conf_dir}":
