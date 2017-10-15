@@ -6,6 +6,7 @@ Gemfile.lock
 pkg
 spec/fixtures/
 .vagrant/
+puppet/
 log/
 vendor/
 bin/
