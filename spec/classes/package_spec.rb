@@ -65,30 +65,30 @@ describe 'nexus::package', :type => :class do
           'require' => 'Exec[nexus-untar]',
         ) }
 
-        it 'should handle deploy_pro' do
-          params.merge!(
-            {
-              'deploy_pro'    => true,
-              'download_site' => 'http://download.sonatype.com/nexus/professional-bundle'
-            }
-          )
+        #it 'should handle deploy_pro' do
+        #  params.merge!(
+        #    {
+        #      'deploy_pro'    => true,
+        #      'download_site' => 'http://download.sonatype.com/nexus/professional-bundle'
+        #    }
+        #  )
 
-          should contain_wget__fetch('nexus-professional-2.11.2-01-bundle.tar.gz').with(
-            'source' => 'http://download.sonatype.com/nexus/professional-bundle/nexus-professional-2.11.2-01-bundle.tar.gz',
-            'destination' => '/srv/nexus-professional-2.11.2-01-bundle.tar.gz',
-          )
+        #  should contain_wget__fetch('nexus-professional-2.11.2-01-bundle.tar.gz').with(
+        #    'source' => 'http://download.sonatype.com/nexus/professional-bundle/nexus-professional-2.11.2-01-bundle.tar.gz',
+        #    'destination' => '/srv/nexus-professional-2.11.2-01-bundle.tar.gz',
+        #  )
 
-          should contain_exec('nexus-untar').with(
-            'command' => 'tar zxf /srv/nexus-professional-2.11.2-01-bundle.tar.gz --directory /srv',
-            'creates' => '/srv/nexus-professional-2.11.2-01',
-          )
+        #  should contain_exec('nexus-untar').with(
+        #    'command' => 'tar zxf /srv/nexus-professional-2.11.2-01-bundle.tar.gz --directory /srv',
+        #    'creates' => '/srv/nexus-professional-2.11.2-01',
+        #  )
 
-          should contain_file('/srv/nexus-professional-2.11.2-01')
+        #  should contain_file('/srv/nexus-professional-2.11.2-01')
 
-          should contain_file('/srv/nexus').with(
-            'target' => '/srv/nexus-professional-2.11.2-01',
-          )
-        end
+        #  should contain_file('/srv/nexus').with(
+        #    'target' => '/srv/nexus-professional-2.11.2-01',
+        #  )
+        #end
 
         it 'should working with md5sum' do
           params.merge!(
