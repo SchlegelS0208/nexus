@@ -23,10 +23,10 @@ class nexus::params {
   # See nexus::package on why this won't increment the package version.
   $version                       = 'latest'
   $revision                      = '01'
-  $type                          = 'bundle'
+  $type                          = 'unix'
   $deploy_pro                    = false
-  $download_site                 = 'http://download.sonatype.com/nexus/oss'
-  $nexus_root                    = '/srv'
+  $download_site                 = 'https://sonatype-download.global.ssl.fastly.net/nexus/3/'
+  $nexus_root                    = '/opt'
   $nexus_home_dir                = 'nexus'
   $nexus_work_recurse            = true
   $nexus_work_dir_manage         = true
@@ -39,7 +39,7 @@ class nexus::params {
   $nexus_manage_user             = true
   $pro_download_site             = 'http://download.sonatype.com/nexus/professional-bundle'
   $nexus_data_folder             = undef
-  $download_folder               = '/srv'
+  $download_folder               = '/opt'
   $manage_config                 = true
   $md5sum                        = undef
 }

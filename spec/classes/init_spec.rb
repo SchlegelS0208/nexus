@@ -9,7 +9,7 @@ describe 'nexus', :type => :class do
 
       let(:params) {
         {
-          'version' => '2.11.2'
+          'version' => '3.6.0'
         }
       }
 
