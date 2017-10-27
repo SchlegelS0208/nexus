@@ -93,7 +93,7 @@ describe 'nexus::package', :type => :class do
         it 'should working with md5sum' do
           params.merge!(
             {
-              'md5sum'        => '1234567890'
+              'md5sum'        => 'c371a04067f6a83156772f54603ad58a'
             }
           )
           should contain_wget__fetch('nexus-3.6.0-02-unix.tar.gz').with(
