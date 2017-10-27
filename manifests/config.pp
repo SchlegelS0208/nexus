@@ -73,13 +73,13 @@ class nexus::config(
       recurse => true,
       require => File["${nexus_root}/sonatype-work"],
     }
-  }
 
-  file { "${nexus_work_dir}/${conf_dir}":
-        ensure  => directory,
-        owner   => 'nexus',
-        group   => 'nexus',
-        recurse => true,
+    file { "${nexus_work_dir}/${conf_dir}":
+      ensure  => directory,
+      owner   => 'nexus',
+      group   => 'nexus',
+      recurse => true,
+    }
   }
 
   file { "${nexus_properties_file}.tmpl":
