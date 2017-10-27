@@ -9,22 +9,18 @@ describe 'nexus::package', :type => :class do
 
       let(:params) {
         {
-          'deploy_pro'                    => false,
-          'download_site'                 => 'http://download.sonatype.com/nexus/oss',
-          'nexus_root'                    => '/srv',
-          'nexus_home_dir'                => 'nexus',
-          'nexus_user'                    => 'nexus',
-          'nexus_group'                   => 'nexus',
-          'nexus_work_dir'                => '/srv/sonatype-work/nexus',
-          'nexus_work_dir_manage'         => true,
-          'nexus_work_recurse'            => true,
-          'nexus_type'                    => 'bundle',
-          'nexus_selinux_ignore_defaults' => true,
-          # Assume a good revision as init.pp screens for us
-          'revision'                      => '01',
-          'version'                       => '2.11.2',
-          'download_folder'               => '/srv',
-          'md5sum'                        => '',
+          'version'               => '3.6.0',
+          'revision'              => '02',
+          'download_site'         => 'https://sonatype-download.global.ssl.fastly.net/nexus/3',
+          'nexus_type'            => 'unix',
+          'nexus_root'            => '/opt',
+          'download_folder'       => '/opt',
+          'nexus_home_dir'        => 'nexus',
+          'nexus_user'            => 'nexus',
+          'nexus_group'           => 'nexus',
+          'nexus_work_dir'        => '/opt/sonatype-work/nexus',
+          'nexus_work_dir_manage' => true,
+          'nexus_work_recurse'    => true,
         }
       }
 
