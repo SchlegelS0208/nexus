@@ -9,15 +9,10 @@ because it seems to be not actively maintained anymore:
 * maestrodev/wget
 * puppetlabs/stdlib
 
-## Usage
-The following is a basic role class for building a nexus host.
-Adjust accordingly as needed.
-
-NOTE: you must pass version to Class['nexus'].  This is needed for the
-download link and determining the name of the nexus directory.
-
-echo "manifest = /tmp/puppet/manifest" >> /etc/puppet/puppet.conf 
-echo "modules = /tmp/puppet/modules" >> /etc/puppet/puppet.conf 
+## Vagrant build / test instructions
+```bash
+echo "manifest = /tmp/puppet/manifest" >> /etc/puppet/puppet.conf  
+echo "modules = /tmp/puppet/modules" >> /etc/puppet/puppet.conf
 yum install -y git java-openjdk
 cd /tmp/puppet
 git init
@@ -25,6 +20,14 @@ git submodule add https://github.com/puppetlabs/puppetlabs-stdlib.git modules/st
 git submodule add https://github.com/maestrodev/puppet-wget.git modules/wget
 cd /tmp/puppet/manifests
 puppet apply --pluginsync --verbose --modulepath '/tmp/puppet/modules' /tmp/puppet/manifests/default.pp 
+```
+
+## Usage
+The following is a basic role class for building a nexus host.
+Adjust accordingly as needed.
+
+NOTE: you must pass version to Class['nexus'].  This is needed for the
+download link and determining the name of the nexus directory.
 
 ```puppet
 class role_nexus_server {
