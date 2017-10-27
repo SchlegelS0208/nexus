@@ -11,7 +11,7 @@ describe 'apt class' do
       class{ '::nexus':
         version    => '3.6.0',
         revision   => '02',
-        nexus_root => '/opz',
+        nexus_root => '/opt',
       }
       EOS
 
