@@ -11,7 +11,7 @@ describe 'apt class' do
       class{ '::nexus':
         version               => '3.6.0',
         revision              => '02',
-        md5sum                => 'e1cece1ae5eb3a12f857e2368a3e9dbc',
+        md5sum                => 'c371a04067f6a83156772f54603ad58a',
         nexus_root => '/srv',
       }
       EOS
