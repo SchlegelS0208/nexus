@@ -23,6 +23,7 @@ describe 'nexus::package', :type => :class do
           'nexus_work_dir_manage'         => true,
           'nexus_work_recurse'            => true,
           'nexus_selinux_ignore_defaults' => true,
+          'md5sum'                        => 'c371a04067f6a83156772f54603ad58a',
         }
       }
 
