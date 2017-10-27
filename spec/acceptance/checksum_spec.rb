@@ -9,8 +9,8 @@ describe 'apt class' do
       class{ '::java': }
 
       class{ '::nexus':
-        version               => '2.8.0',
-        revision              => '05',
+        version               => '3.6.0',
+        revision              => '02',
         md5sum                => 'e1cece1ae5eb3a12f857e2368a3e9dbc',
         nexus_root => '/srv',
       }

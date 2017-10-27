@@ -9,8 +9,8 @@ describe 'nexus class' do
       class{ '::java': }
 
       class{ '::nexus':
-        version    => '2.8.0',
-        revision   => '05',
+        version    => '3.6.0',
+        revision   => '02',
         nexus_root => '/srv',
         download_folder => '/var/tmp/'
       }
