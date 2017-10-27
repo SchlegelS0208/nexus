@@ -22,7 +22,7 @@ RSpec.configure do |c|
     hosts.each do |host|
       shell("/bin/touch #{default['puppetpath']}/hiera.yaml")
       shell('puppet module install puppetlabs-stdlib', { :acceptable_exit_codes => [0,1] })
-      shell('puppet module install puppetlabs-java', { :acceptable_exit_codes => [0,1] })
+      shell('puppet module install puppetlabs-java -v 1.6.0', { :acceptable_exit_codes => [0,1] })
       shell('puppet module install maestrodev-wget', { :acceptable_exit_codes => [0,1] })
     end
   end

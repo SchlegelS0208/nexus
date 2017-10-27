@@ -17,6 +17,7 @@ yum install -y git java-openjdk
 cd /tmp/puppet
 git init
 git submodule add https://github.com/puppetlabs/puppetlabs-stdlib.git modules/stdlib
+puppet module install puppetlabs-java --version 1.6.0 --target-dir /tmp/puppet/modules/
 git submodule add https://github.com/maestrodev/puppet-wget.git modules/wget
 cd /tmp/puppet/manifests
 puppet apply --pluginsync --verbose --modulepath '/tmp/puppet/modules' /tmp/puppet/manifests/default.pp 
