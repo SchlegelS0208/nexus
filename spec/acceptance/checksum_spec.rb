@@ -12,7 +12,7 @@ describe 'apt class' do
         version               => '3.6.0',
         revision              => '02',
         md5sum                => 'c371a04067f6a83156772f54603ad58a',
-        nexus_root => '/srv',
+        nexus_root => '/opt',
       }
       EOS
 

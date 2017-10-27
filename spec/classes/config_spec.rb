@@ -9,7 +9,7 @@ describe 'nexus::config', :type => :class do
       'nexus_port'            => '8888',
       'nexus_context'         => '/baz',
       'nexus_work_dir'        => '/foom',
-      'version'               => '2.11.2',
+      'version'               => '3.6.0',
       'nexus_data_folder'     => '',
       'nexus_work_dir_manage' => 'true',
     }

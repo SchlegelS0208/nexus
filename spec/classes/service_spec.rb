@@ -11,9 +11,9 @@ shared_examples "systemd" do
 end
 shared_examples "initd" do
   it { should contain_file_line('nexus_NEXUS_HOME').with(
-    'path'  => '/srv/nexus/bin/nexus',
+    'path'  => '/opt/nexus/bin/nexus',
     'match' => '^#?NEXUS_HOME=',
-    'line'  => 'NEXUS_HOME=/srv/nexus',
+    'line'  => 'NEXUS_HOME=/opt/nexus',
   ) }
 
   it { should contain_file('/etc/init.d/nexus').with(
@@ -31,7 +31,7 @@ shared_examples "initd" do
   end
 
   it { should contain_file_line('nexus_RUN_AS_USER').with(
-    'path'  => '/srv/nexus/bin/nexus',
+    'path'  => '/opt/nexus/bin/nexus',
     'match' => '^#?RUN_AS_USER=',
     'line'  => 'RUN_AS_USER=${run_as_user:-nexus}',
   ) }
@@ -54,7 +54,7 @@ describe 'nexus::service', :type => :class do
       end
       let(:params) {
         {
-          'nexus_home'  => '/srv/nexus',
+          'nexus_home'  => '/opt/nexus',
           'nexus_user'  => 'nexus',
           'nexus_group' => 'nexus',
           'version'     => '01',
