@@ -38,7 +38,7 @@ describe 'nexus class' do
         }
       end
       describe command('curl 0.0.0.0:8081/nexus/') do
-        its(:stdout) { should match /Sonatype Nexus&trade; 2.8.0-05/ }
+        its(:stdout) { should match /Nexus Repository Manager/ }
       end
     end
 

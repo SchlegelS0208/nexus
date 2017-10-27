@@ -33,13 +33,13 @@ describe 'apt class' do
     context 'Nexus should be running on the default port' do
       describe port(8081) do
         it {
-          sleep(180) # Waiting start up
+          sleep(500) # Waiting start up
           should be_listening
         }
       end
 
       describe command('curl 0.0.0.0:8081/nexus/') do
-        its(:stdout) { should match /Sonatype Nexus&trade; 2.8.0-05/ }
+        its(:stdout) { should match /Nexus Repository Manager/ }
       end
     end
 
