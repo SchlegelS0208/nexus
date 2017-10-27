@@ -92,7 +92,7 @@ class nexus::config(
   }
 
   exec { 'install-nexus-config':
-    command => "yes | cp ${nexus_properties_file}.tmpl ${nexus_properties_file}",
+    command => "yes | cp ${nexus_properties_file}.tmpl ${nexus_properties_file} && chown nexus.nexus ${nexus_properties_file}",
     path    => ['/bin/','/sbin/','/usr/bin/','/usr/sbin'],
     require => File["${nexus_properties_file}.tmpl"],
     unless  => "grep -q PUPPET ${nexus_properties_file}",
