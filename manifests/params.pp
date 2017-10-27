@@ -22,7 +22,7 @@
 class nexus::params {
   # See nexus::package on why this won't increment the package version.
   $version                       = 'latest'
-  $revision                      = '01'
+  $revision                      = '02'
   $type                          = 'unix'
   $deploy_pro                    = false
   $download_site                 = 'https://sonatype-download.global.ssl.fastly.net/nexus/3/'
