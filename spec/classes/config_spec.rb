@@ -30,7 +30,7 @@ describe 'nexus::config', :type => :class do
       'line'  => 'application-port=8888',
     ) }
 
-    it { should contain_file_line('nexus-webapp-context-path').with(
+    it { should contain_file_line('nexus-context-path').with(
       'path'  => '/opt/sonatype-work/nexus3/etc/nexus.properties',
       'match' => '^nexus-context-path',
       'line'  => 'nexus-context-path=/nexus',
