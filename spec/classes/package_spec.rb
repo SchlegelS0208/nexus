@@ -9,6 +9,7 @@ describe 'nexus::package', :type => :class do
 
       let(:params) {
         {
+          'deploy_pro'            => false,
           'version'               => '3.6.0',
           'revision'              => '02',
           'download_site'         => 'https://sonatype-download.global.ssl.fastly.net/nexus/3',
@@ -18,7 +19,7 @@ describe 'nexus::package', :type => :class do
           'nexus_home_dir'        => 'nexus',
           'nexus_user'            => 'nexus',
           'nexus_group'           => 'nexus',
-          'nexus_work_dir'        => '/opt/sonatype-work/nexus',
+          'nexus_work_dir'        => '/opt/sonatype-work/nexus3',
           'nexus_work_dir_manage' => true,
           'nexus_work_recurse'    => true,
         }
@@ -27,20 +28,20 @@ describe 'nexus::package', :type => :class do
       context 'with default values' do
         it { should contain_class('nexus::package') }
 
-        it { should contain_wget__fetch('nexus-2.11.2-01-bundle.tar.gz').with(
-          'source'      => 'http://download.sonatype.com/nexus/oss/nexus-2.11.2-01-bundle.tar.gz',
-          'destination' => '/srv/nexus-2.11.2-01-bundle.tar.gz',
+        it { should contain_wget__fetch('nexus-3.6.0-02-unix.tar.gz').with(
+          'source'      => 'https://sonatype-download.global.ssl.fastly.net/nexus/3/nexus-3.6.0-02-unix.tar.gz',
+          'destination' => '/opt/nexus-3.6.0-02-unix.tar.gz',
           'before'      => 'Exec[nexus-untar]',
           'source_hash' => '',
         ) }
 
         it { should contain_exec('nexus-untar').with(
-          'command' => 'tar zxf /srv/nexus-2.11.2-01-bundle.tar.gz --directory /srv',
-          'creates' => '/srv/nexus-2.11.2-01',
+          'command' => 'tar zxf /opt/nexus-3.6.0-02-unix.tar.gz --directory /opt',
+          'creates' => '/opt/nexus-3.6.0-02',
           'path'    => [ '/bin', '/usr/bin' ],
         ) }
 
-        it { should contain_file('/srv/nexus-2.11.2-01').with(
+        it { should contain_file('/opt/nexus-3.6.0-02').with(
           'ensure'  => 'directory',
           'owner'   => 'nexus',
           'group'   => 'nexus',
@@ -48,7 +49,7 @@ describe 'nexus::package', :type => :class do
           'require' => 'Exec[nexus-untar]',
         ) }
 
-        it { should contain_file('/srv/sonatype-work/nexus').with(
+        it { should contain_file('/opt/sonatype-work/nexus3').with(
           'ensure'  => 'directory',
           'owner'   => 'nexus',
           'group'   => 'nexus',
@@ -56,9 +57,9 @@ describe 'nexus::package', :type => :class do
           'require' => 'Exec[nexus-untar]',
         ) }
 
-        it { should contain_file('/srv/nexus').with(
+        it { should contain_file('/opt/nexus').with(
           'ensure'  => 'link',
-          'target'  => '/srv/nexus-2.11.2-01',
+          'target'  => '/opt/nexus-3.6.0-02',
           'require' => 'Exec[nexus-untar]',
         ) }
 
@@ -93,15 +94,15 @@ describe 'nexus::package', :type => :class do
               'md5sum'        => '1234567890'
             }
           )
-          should contain_wget__fetch('nexus-2.11.2-01-bundle.tar.gz').with(
-            'source'      => 'http://download.sonatype.com/nexus/oss/nexus-2.11.2-01-bundle.tar.gz',
-            'destination' => '/srv/nexus-2.11.2-01-bundle.tar.gz',
+          should contain_wget__fetch('nexus-3.6.0-02-unix.tar.gz').with(
+            'source'      => 'https://sonatype-download.global.ssl.fastly.net/nexus/3/nexus-3.6.0-02-unix.tar.gz',
+            'destination' => '/opt/nexus-3.6.0-02-unix.tar.gz',
             'before'      => 'Exec[nexus-untar]',
-            'source_hash' => '1234567890',
+            'source_hash' => 'c371a04067f6a83156772f54603ad58a',
           )
           should contain_exec('nexus-untar').with(
-            'command' => 'tar zxf /srv/nexus-2.11.2-01-bundle.tar.gz --directory /srv',
-            'creates' => '/srv/nexus-2.11.2-01',
+            'command' => 'tar zxf /opt/nexus-3.6.0-02-unix.tar.gz --directory /opt',
+            'creates' => '/opt/nexus-3.6.0-02',
             'path'    => [ '/bin', '/usr/bin' ],
           )
         end
