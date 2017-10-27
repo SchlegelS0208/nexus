@@ -33,7 +33,7 @@ describe 'nexus class' do
     context 'Nexus should be running on the default port' do
       describe port(8081) do
         it {
-          sleep(90) # Waiting start up
+          sleep(300) # Waiting start up
           should be_listening
         }
       end

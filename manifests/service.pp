@@ -102,4 +102,11 @@ class nexus::service (
         File_line['nexus_RUN_AS_USER'],]
     }
   }
+
+#  exec { 'wait_for_nexus_webapp':
+#    require => Service['nexus'],
+#    command => "sleep 300 && curl 0.0.0.0:8081/nexus/",
+#    path    => "/usr/bin:/bin",
+#  }
+
 }
