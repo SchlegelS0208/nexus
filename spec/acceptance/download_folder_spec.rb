@@ -9,10 +9,10 @@ describe 'nexus class' do
       class{ '::java': }
 
       class{ '::nexus':
-        version    => '3.6.0',
-        revision   => '02',
-        nexus_root => '/opt',
-        download_folder => '/var/tmp/'
+        version         => '3.6.0',
+        revision        => '02',
+        nexus_root      => '/opt',
+        download_folder => '/opt/'
       }
       EOS
 

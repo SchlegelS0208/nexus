@@ -6,7 +6,7 @@ HOSTS:
       - database
     platform: ubuntu-14.04-amd64
     hypervisor: docker
-    image: jared314:ubuntu-14-04-java8
+    image: ubuntu:14.04
     docker_preserve_image: true
     docker_cmd: '["/sbin/init"]'
     docker_image_commands:
