@@ -2,8 +2,8 @@
 # vi: set ft=ruby :
 VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  #config.vm.box = "bento/centos-6.9"
-  config.vm.box = "puppetlabs/centos-6.6-64-puppet"
+  #config.vm.box = "puppetlabs/centos-6.6-64-puppet"
+  config.vm.box = "puppetlabs/ubuntu-14.04-64-nocm"
   config.vm.box_version = "1.0.1"
   config.vm.provision :file, source: "/home/sschlegel-lc/github/nexus/puppet/manifests", destination: "/tmp/puppet/"
   config.vm.provision :file, source: "/home/sschlegel-lc/github/nexus/manifests", destination: "/tmp/puppet/modules/nexus/manifests"

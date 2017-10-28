@@ -8,8 +8,11 @@ because it seems to be not actively maintained anymore:
 ## Requires
 * maestrodev/wget
 * puppetlabs/stdlib
+* puppetlabs/java
+    or
+* tylerwalts/jdk_oracle
 
-## Vagrant build / test instructions
+## Vagrant build / test instructions for CentOS
 ```bash
 echo "manifest = /tmp/puppet/manifest" >> /etc/puppet/puppet.conf  
 echo "modules = /tmp/puppet/modules" >> /etc/puppet/puppet.conf
@@ -23,6 +26,29 @@ cd /tmp/puppet/manifests
 puppet apply --pluginsync --verbose --modulepath '/tmp/puppet/modules' /tmp/puppet/manifests/default.pp 
 ```
 
+## Vagrant build / test instructions for Debian OS
+```bash
+echo "manifest = /tmp/puppet/manifest" >> /etc/puppet/puppet.conf
+echo "modules = /tmp/puppet/modules" >> /etc/puppet/puppet.conf
+rm /usr/sbin/policy-rc.d
+rm /sbin/initctl
+dpkg-divert --rename --remove /sbin/initctl
+apt-get update
+apt-get install -y net-tools wget git
+locale-gen en_US.UTF-8
+wget -O /tmp/puppet.deb http://apt.puppetlabs.com/puppetlabs-release-pc1-trusty.deb
+dpkg -i --force-all /tmp/puppet.deb
+apt-get install --force-yes -y puppet-agent
+apt-get install --force-yes -y puppet-common
+cd /tmp/puppet
+git init
+git submodule add https://github.com/puppetlabs/puppetlabs-stdlib.git modules/stdlib
+puppet module install tylerwalts-jdk_oracle --version 2.0.0 --target-dir /tmp/puppet/modules/
+git submodule add https://github.com/maestrodev/puppet-wget.git modules/wget
+cd /tmp/puppet/manifests
+puppet apply --pluginsync --verbose --modulepath '/tmp/puppet/modules' /tmp/puppet/manifests/default.pp
+```
+
 ## Usage
 The following is a basic role class for building a nexus host.
 Adjust accordingly as needed.
@@ -30,40 +56,45 @@ Adjust accordingly as needed.
 NOTE: you must pass version to Class['nexus'].  This is needed for the
 download link and determining the name of the nexus directory.
 
+## for CentOS
 ```puppet
-class role_nexus_server {
-
-  # puppetlabs-java
-  # NOTE: Nexus requires
-  class{ '::java': }
-
-  class{ '::nexus':
-    version    => '2.8.0',
-    revision   => '05',
-    nexus_root => '/srv', # All directories and files will be relative to this
-  }
-
-  Class['::java'] ->
-  Class['::nexus']
+# puppetlabs-java
+# NOTE: Nexus requires
+class{ 'java': }
+->
+class{ 'nexus':
+  version    => '3.6.0',
+  revision   => '02',
+  nexus_root => '/opt', # All directories and files will be relative to this
 }
 ```
 
-NOTE: If you wish to deploy a Nexus Pro server instead of Nexus OSS set
-`deploy_pro => true`
+## for Debian OS
+```puppet
+# NOTE: Nexus requires
+class { 'jdk_oracle':
+  jce            => true,
+  version_update => '151',
+  version_build  => '12',
+  version_hash   => 'e758a0de34e24606bca991d704f6dcbf',
+  default_java   => true,
+}
+->
+class{ 'nexus':
+  version    => '3.6.0',
+  revision   => '02',
+  nexus_root => '/opt', # All directories and files will be relative to this
+}
+```
 
 ### Usage: Nexus 3.6 support
-
 ```puppet
-class role_nexus_server {
-
-  class{ '::nexus':
-    version               => '3.0.0',
-    revision              => '03',
-    download_site         => 'http://download.sonatype.com/nexus/3',
-    nexus_type            => 'unix',
-    nexus_work_dir_manage => false
-  }
-
+class{ '::nexus':
+  version               => '3.0.0',
+  revision              => '03',
+  download_site         => 'http://download.sonatype.com/nexus/3',
+  nexus_type            => 'unix',
+  nexus_work_dir_manage => false
 }
 ```
 
