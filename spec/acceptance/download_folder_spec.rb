@@ -7,11 +7,9 @@ describe 'nexus class' do
     it 'should work with no errors' do
       pp = <<-EOS
       node default {
-        notify { "Preparing installation of Nexus OSS": }
+        notify { 'Preparing installation of Nexus OSS': }
       
         if $::operatingsystem == 'Debian' or $::operatingsystem == 'Ubuntu' {
-          notify { "Found Debian-based OS: $::operatingsystem": }
-      
           class { 'jdk_oracle':
             jce            => true,
             version_update => '151',
@@ -21,14 +19,12 @@ describe 'nexus class' do
             before         => Class['nexus'],
           }
         } else {
-          notify { "Found RPM-based OS: $::operatingsystem": }
-      
           class { 'java':
             before         => Class['nexus'],
           }
         }
       
-        notify { "Running installation procedure of Nexus OSS": }
+        notify { 'Running installation procedure of Nexus OSS': }
         class { 'nexus':
           version               => '3.6.0',
           revision              => '02',
