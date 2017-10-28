@@ -18,6 +18,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
   config.vm.network "private_network", ip: "192.168.177.233"
   config.vm.provider :virtualbox do |vb|
+     vb.memory = 1536
+     vb.cpus = 1
      vb.name = "nexus-vgBox"
   end
 end
