@@ -6,13 +6,35 @@ describe 'apt class' do
     # Using puppet_apply as a helper
     it 'should work with no errors' do
       pp = <<-EOS
-      class{ '::java': }
-
-      class{ '::nexus':
-        version               => '3.6.0',
-        revision              => '02',
-        md5sum                => 'c371a04067f6a83156772f54603ad58a',
-        nexus_root            => '/opt',
+      node default {
+        notify { "Preparing installation of Nexus OSS": }
+      
+        if $::operatingsystem == 'Debian' or $::operatingsystem == 'Ubuntu' {
+          notify { "Found Debian-based OS: $::operatingsystem": }
+      
+          class { 'jdk_oracle':
+            jce            => true,
+            version_update => '151',
+            version_build  => '12',
+            version_hash   => 'e758a0de34e24606bca991d704f6dcbf',
+            default_java   => true,
+            before         => Class['nexus'],
+          }
+        } else {
+          notify { "Found RPM-based OS: $::operatingsystem": }
+      
+          class { 'java':
+            before         => Class['nexus'],
+          }
+        }
+      
+        notify { "Running installation procedure of Nexus OSS": }
+        class { 'nexus':
+          version               => '3.6.0',
+          revision              => '02',
+          md5sum                => 'c371a04067f6a83156772f54603ad58a',
+          nexus_root            => '/opt',
+        }
       }
       EOS
 

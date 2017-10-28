@@ -22,14 +22,11 @@ git init
 git submodule add https://github.com/puppetlabs/puppetlabs-stdlib.git modules/stdlib
 puppet module install puppetlabs-java --version 1.6.0 --target-dir /tmp/puppet/modules/
 git submodule add https://github.com/maestrodev/puppet-wget.git modules/wget
-cd /tmp/puppet/manifests
 puppet apply --pluginsync --verbose --modulepath '/tmp/puppet/modules' /tmp/puppet/manifests/default.pp 
 ```
 
 ## Vagrant build / test instructions for Debian OS
 ```bash
-echo "manifest = /tmp/puppet/manifest" >> /etc/puppet/puppet.conf
-echo "modules = /tmp/puppet/modules" >> /etc/puppet/puppet.conf
 rm /usr/sbin/policy-rc.d
 rm /sbin/initctl
 dpkg-divert --rename --remove /sbin/initctl
@@ -38,14 +35,16 @@ apt-get install -y net-tools wget git
 locale-gen en_US.UTF-8
 wget -O /tmp/puppet.deb http://apt.puppetlabs.com/puppetlabs-release-pc1-trusty.deb
 dpkg -i --force-all /tmp/puppet.deb
+apt-get update
 apt-get install --force-yes -y puppet-agent
 apt-get install --force-yes -y puppet-common
+echo "manifest = /tmp/puppet/manifest" >> /etc/puppet/puppet.conf
+echo "modules = /tmp/puppet/modules" >> /etc/puppet/puppet.conf
 cd /tmp/puppet
 git init
 git submodule add https://github.com/puppetlabs/puppetlabs-stdlib.git modules/stdlib
 puppet module install tylerwalts-jdk_oracle --version 2.0.0 --target-dir /tmp/puppet/modules/
 git submodule add https://github.com/maestrodev/puppet-wget.git modules/wget
-cd /tmp/puppet/manifests
 puppet apply --pluginsync --verbose --modulepath '/tmp/puppet/modules' /tmp/puppet/manifests/default.pp
 ```
 
