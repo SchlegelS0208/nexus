@@ -51,7 +51,7 @@ describe 'apt class' do
     context 'Nexus should be running on the default port' do
       describe port(8081) do
         it {
-          sleep(500) # Waiting start up
+          sleep(120) # Waiting start up
           should be_listening
         }
       end
