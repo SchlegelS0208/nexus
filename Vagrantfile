@@ -17,6 +17,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define "nexus-testBox" do |foohost|
   end
   config.vm.network "private_network", ip: "192.168.177.233"
+  config.vm.network "forwarded_port", guest: 8081, host: 8081
   config.vm.provider :virtualbox do |vb|
      vb.memory = 1536
      vb.cpus = 1
